@@ -88,7 +88,9 @@ After running, the output will be in the `outputs/` directory, the results will 
 
 If you want to add your own models, you'll need to write your models in the `trainers/` directory and register them in dassl, then configure the settings in the `configs/` directory and `train.py` file, and add your new tasks to the `configs.py` file. Then you can run `python parallel_runner.py --cfg your_model` to run our own model.
 
-后续如果要对maple等模型进行openset实验，首先在`trainers/`文件夹下创建对应的训练器文件，命名为maple_dept_etf.py，然后在`configs/`文件夹下创建对应的配置文件maple_dept_etf.yaml，最后在`configs.py`文件中添加新的任务配置maple_dept_etf。然后在`trainers/`文件夹下创建对应的训练器文件，命名为openset_maple_dept.py，然后在`configs/`文件夹下创建对应的配置文件openset_maple_dept.yaml，最后在`configs.py`文件中添加新的任务配置openset_maple_dept。还要在`configs.py`中添加baselines_maple，以对基线进行测试
+后续如果要对maple等模型进行openset实验，首先在`trainers/`文件夹下创建对应的训练器文件，命名为maple_dept_etf.py，然后在`configs/`文件夹下创建对应的配置文件maple_dept_etf.yaml，最后在`configs.py`文件中添加新的任务配置maple_dept_etf。
+接着在`trainers/`文件夹下创建对应的训练器文件，命名为openset_maple_dept.py，然后在`configs/`文件夹下创建对应的配置文件openset_maple_dept.yaml，最后在`configs.py`文件中添加新的任务配置openset_maple_dept。
+还要在`configs.py`中添加baselines_maple，以对基线进行测试
 ----
 
 # Citation
