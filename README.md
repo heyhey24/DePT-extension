@@ -45,6 +45,14 @@ pip install setuptools==59.5.0
 # Data preparation
 
 Please follow the instructions at [DATASETS.md](datasets/DATASETS.md) to prepare all datasets.
+除按照要求准备好数据以外，还需要在每个数据集文件下创建一个‘openset_ood_class.json’文件，里面存放每个数据ood类的label，例如Caltech101：
+```
+caltech-101/
+|–– 101_ObjectCategories/
+|–– split_zhou_Caltech101.json
+|–– openset_ood_class.json.json
+```
+每个数据集的ood类。参考 <https://vcnfcswwphtx.feishu.cn/wiki/ACsgwyeoriouWykbRPqcjqsWnbb?from=from_copylink>
 
 ----
 
