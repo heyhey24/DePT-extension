@@ -1,74 +1,4 @@
-# DePT: Decoupled Prompt Tuning
-
-Our DePT established the following remarkable results without borrowing Extra Knowledge from stronger models (e.g., via KD) or employing extra Data Augmentation strategies.
-
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dept-decoupled-prompt-tuning/prompt-engineering-on-eurosat)](https://paperswithcode.com/sota/prompt-engineering-on-eurosat?p=dept-decoupled-prompt-tuning)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dept-decoupled-prompt-tuning/prompt-engineering-on-dtd)](https://paperswithcode.com/sota/prompt-engineering-on-dtd?p=dept-decoupled-prompt-tuning)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dept-decoupled-prompt-tuning/prompt-engineering-on-food-101)](https://paperswithcode.com/sota/prompt-engineering-on-food-101?p=dept-decoupled-prompt-tuning)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dept-decoupled-prompt-tuning/prompt-engineering-on-oxford-iiit-pet-dataset)](https://paperswithcode.com/sota/prompt-engineering-on-oxford-iiit-pet-dataset?p=dept-decoupled-prompt-tuning)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dept-decoupled-prompt-tuning/prompt-engineering-on-sun397)](https://paperswithcode.com/sota/prompt-engineering-on-sun397?p=dept-decoupled-prompt-tuning)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dept-decoupled-prompt-tuning/prompt-engineering-on-caltech-101)](https://paperswithcode.com/sota/prompt-engineering-on-caltech-101?p=dept-decoupled-prompt-tuning)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dept-decoupled-prompt-tuning/prompt-engineering-on-imagenet)](https://paperswithcode.com/sota/prompt-engineering-on-imagenet?p=dept-decoupled-prompt-tuning)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dept-decoupled-prompt-tuning/prompt-engineering-on-stanford-cars-1)](https://paperswithcode.com/sota/prompt-engineering-on-stanford-cars-1?p=dept-decoupled-prompt-tuning)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dept-decoupled-prompt-tuning/prompt-engineering-on-ucf101)](https://paperswithcode.com/sota/prompt-engineering-on-ucf101?p=dept-decoupled-prompt-tuning)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dept-decoupled-prompt-tuning/prompt-engineering-on-fgvc-aircraft)](https://paperswithcode.com/sota/prompt-engineering-on-fgvc-aircraft?p=dept-decoupled-prompt-tuning)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/dept-decoupled-prompt-tuning/prompt-engineering-on-oxford-102-flower)](https://paperswithcode.com/sota/prompt-engineering-on-oxford-102-flower?p=dept-decoupled-prompt-tuning)
-
-Offical implementation of the paper [DePT: Decoupled Prompt Tuning](https://arxiv.org/abs/2309.07439).
-
-**Note:** We are doing our best to improve this work. If you have any questions or suggestions, please feel free to create an issue in this repo or contact us at jizhang.jim@gmail.com.
-
-----
-
-# News
-
-- (Feb. 27, 2024)
-  
-  - Our paper is accepted at CVPR 2024!
-
-- (Nov. 05, 2023)
-  
-  - Training and evaluation codes for DePT are released.
-
-- (Sep. 14, 2023)
-  
-  - Our paper is published on arXiv.
-
-----
-
-# Highlights
-
-> **Abstract** Prompt tuning has shown great success in adapting large vision-language pre-trained models to downstream tasks. A plethora of methods have been proposed to tackle the base- new tradeoff (BNT) dilemma, i.e., the better the adapted model generalizes to the base (a.k.a. target) task, the worse it generalizes to new tasks, and vice versa. Despite this, the BNT problem is still far from being resolved and its underlying mechanisms are poorly understood. In this work, we bridge this gap by proposing Decoupled Prompt Tuning (DePT), a first framework tackling the BNT problem from a feature decoupling perspective. Specifically, through an in-depth analysis on the learned features of the base and new tasks, we observe that the BNT stems from a channel bias issue, i.e., the vast majority of feature channels are occupied by base-specific knowledge, resulting in the collapse oftask-shared knowledge important to new tasks. To address this, DePT decouples base-specific knowledge from feature channels into an isolated feature space during prompt tuning, so as to maximally preserve task-shared knowledge in the original feature space for achieving better zero-shot generalization on new tasks. DePT is orthogonal to existing prompt tuning methods, hence it can tackle the BNT problem for all of them. Extensive experiments on 11 datasets show the strong flexibility and effectiveness of DePT.
-
-![Framework](examples/framework.png)
-
-----
-
-# Main Contributions
-
-> 1. We provide an insightful view to analyze the BNT problem in prompt tuning, and for the first time reveal that the BNT stems from the channel bias issue.
-> 2. We propose the DePT framework to tackle the BNT problem from a feature decoupling perspective, and DePT is orthogonal to existing prompt tuning methods. 
-> 3. We perform experiments on 11 diverse datasets and show that DePT consistently enhances the performance of a broad spectrum of baseline methods.
-
-----
-
-# Flexibility and Effectiveness
-
-Our DePT is orthogonal to both prompt tuning and adapter tuning approaches, therefore can be used as a plugin to improve all of them.
-
-<div align="center">
-  <img src="examples/performance.png" width="40%" />
-</div>
-
-**Base-to-New Generalization Performance**
-
-![Base-to-New Generalization](examples/base_to_new_performance.png)
-
-**Cross-Dataset Generalization Performance**
-
-![Cross-Dataset Generalization](examples/cross_dataset_performance.png)
-
-----
+# DePT extension --OpenPT
 
 # Installation
 
@@ -142,10 +72,23 @@ python parallel_runner.py --cfg maple
 python parallel_runner.py --cfg maple_dept
 ```
 
+**Openset experiments**
+
+```
+# Running CoOp (w/ DePT)
+python parallel_runner.py --cfg coop    #先训练coop得到各个数据集coop模型，作为baseline
+python parallel_runner.py --cfg baselines_coop   #然后运行这个命令，对基线进行acc，auroc，fpr95，zsclip acc 多个指标的测试
+
+python parallel_runner.py --cfg coop_dept_etf  #运行这个命令，得到使用ETF分类器的dept模型的base model，以便后续增量训练
+python parallel_runner.py --cfg openset_coop_dept  #然后运行这个命令，进行增量训练，并进行acc，auroc，fpr95，zsclip acc 多个指标的测试
+
+```
+
 After running, the output will be in the `outputs/` directory, the results will be tallied in the `results/` directory as csv, and a mail will be sent to email address.
 
 If you want to add your own models, you'll need to write your models in the `trainers/` directory and register them in dassl, then configure the settings in the `configs/` directory and `train.py` file, and add your new tasks to the `configs.py` file. Then you can run `python parallel_runner.py --cfg your_model` to run our own model.
 
+后续如果要对maple等模型进行openset实验，首先在`trainers/`文件夹下创建对应的训练器文件，命名为maple_dept_etf.py，然后在`configs/`文件夹下创建对应的配置文件maple_dept_etf.yaml，最后在`configs.py`文件中添加新的任务配置maple_dept_etf。然后在`trainers/`文件夹下创建对应的训练器文件，命名为openset_maple_dept.py，然后在`configs/`文件夹下创建对应的配置文件openset_maple_dept.yaml，最后在`configs.py`文件中添加新的任务配置openset_maple_dept。还要在`configs.py`中添加baselines_maple，以对基线进行测试
 ----
 
 # Citation
